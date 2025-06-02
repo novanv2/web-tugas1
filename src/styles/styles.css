@@ -1,0 +1,308 @@
+body {
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  background-color: #f0f6fc;
+  color: #2c3e50;
+  margin: 0;
+  padding: 0;
+  line-height: 1.6;
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+/* HEADER */
+header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  position: relative;
+  background-color: #1f3f8b;
+  padding: 16px 32px;
+  color: white;
+  flex-wrap: wrap;
+  gap: 20px;
+}
+
+header h1 {
+  font-size: 24px;
+  margin: 0;
+  flex-grow: 1;
+}
+
+nav {
+  display: flex;
+  gap: 24px;
+}
+
+nav a {
+  color: #cbd5e1;
+  text-decoration: none;
+  font-weight: 600;
+  font-size: 16px;
+  transition: color 0.2s ease;
+}
+
+nav a:hover {
+  color: #ffffff;
+}
+
+main#main-content {
+  view-transition-name: main-content;
+}
+::view-transition-old(main-content),
+::view-transition-new(main-content) {
+  animation-duration: 300ms;
+  animation-timing-function: ease-in-out;
+}
+
+/* CONTAINER CERITA */
+#home h2 {
+  color: #1e3a8a;
+}
+
+#storyContainer {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: 20px;
+  width: 100%;
+  max-width: 1200px;
+  margin: 40px auto;
+  padding: 0 16px;
+}
+
+/* KARTU CERITA */
+.story-item {
+  background: #ffffff;
+  border-radius: 12px;
+  padding: 16px;
+  box-shadow: 0 3px 12px rgba(0, 0, 0, 0.05);
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  min-height: 280px;
+}
+
+.story-item:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+}
+
+.story-item img {
+  width: 100%;
+  height: 160px;
+  object-fit: cover;
+  border-radius: 10px;
+  background-color: #e2e8f0;
+}
+
+.story-item h3 {
+  font-size: 18px;
+  color: #1e293b;
+  font-weight: 700;
+}
+
+.story-item p {
+  font-size: 14px;
+  color: #475569;
+  margin: 0;
+}
+
+.story-item small {
+  font-size: 12px;
+  color: #64748b;
+  margin-top: auto;
+}
+
+/* FORM CERITA */
+#storyForm {
+  background: #ffffff;
+  padding: 32px;
+  border-radius: 14px;
+  max-width: 520px;
+  margin: 40px auto;
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.1);
+}
+
+#storyForm label {
+  font-weight: 600;
+  margin-bottom: 8px;
+  display: block;
+  color: #0f172a;
+}
+
+#storyForm input,
+#storyForm textarea {
+  width: 100%;
+  border: 1px solid #cbd5e1;
+  border-radius: 8px;
+  padding: 10px;
+  font-size: 15px;
+  margin-bottom: 16px;
+  box-sizing: border-box;
+}
+
+#storyForm input:focus,
+#storyForm textarea:focus {
+  border-color: #3b82f6;
+  box-shadow: 0 0 8px rgba(59, 130, 246, 0.3);
+  outline: none;
+}
+
+#storyForm button[type="submit"] {
+  background: #1e3a8a;
+  color: white;
+  padding: 12px;
+  font-size: 16px;
+  border: none;
+  width: 100%;
+  border-radius: 12px;
+  cursor: pointer;
+  transition: transform 0.2s ease;
+}
+
+#storyForm button[type="submit"]:hover {
+  transform: scale(1.05);
+}
+
+/* CAMERA BUTTONS */
+#startCamera,
+#takePhoto,
+#stopCamera {
+  background: #2563eb;
+  color: white;
+  font-weight: bold;
+  border: none;
+  padding: 10px 14px;
+  border-radius: 8px;
+  margin: 8px 4px;
+  transition: background 0.2s ease;
+}
+
+#startCamera:hover,
+#takePhoto:hover,
+#stopCamera:hover {
+  background: #1e40af;
+}
+
+/* PREVIEW */
+#cameraPreview,
+#photoPreview {
+  max-width: 400px;
+  margin: 20px auto;
+  border-radius: 16px;
+  box-shadow: 0 8px 24px rgba(59, 130, 246, 0.2);
+  display: block;
+}
+
+/* LOGIN FORM */
+section#form {
+  background: #ffffff;
+  padding: 24px;
+  border-radius: 14px;
+  max-width: 500px;
+  margin: 40px auto;
+  box-shadow: 0 8px 24px rgba(59, 130, 246, 0.2);
+}
+
+h2 {
+  text-align: center;
+  color: #1e3a8a;
+  margin-bottom: 1.5rem;
+}
+
+input[type="text"],
+input[type="email"],
+input[type="password"] {
+  border: 1px solid #cbd5e1;
+  border-radius: 10px;
+  padding: 10px;
+  width: 100%;
+  font-size: 1rem;
+}
+
+button[type="submit"] {
+  margin-top: 30px;
+  background-color: #1e3a8a;
+  color: white;
+  font-weight: bold;
+  border-radius: 12px;
+  padding: 10px;
+  width: 100%;
+  border: none;
+  transition: 0.3s;
+}
+
+button[type="submit"]:hover {
+  background-color: #10234d;
+}
+
+#loginMessage {
+  color: #16a34a;
+  text-align: center;
+  margin-top: 1rem;
+  font-weight: bold;
+}
+
+/* LOADING */
+.loading-overlay {
+  position: fixed;
+  top: 0; left: 0;
+  width: 100vw;
+  height: 100vh;
+  background-color: rgba(240, 246, 252, 0.9);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 9999;
+}
+
+.spinner {
+  width: 50px;
+  height: 50px;
+  border: 6px solid #cbd5e1;
+  border-top-color: #2563eb;
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}
+
+.hidden {
+  display: none;
+}
+
+/* FOOTER */
+.footer {
+  background-color: #1e3a8a;
+  text-align: center;
+  padding: 1rem;
+  font-size: 0.9rem;
+  color: #fff;
+  margin-top: auto;
+}
+
+/* SKIP TO CONTENT */
+.skip-to-content {
+  position: absolute;
+  top: -100px; /* Sembunyikan di luar layar */
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 1000;
+  background-color: #ff6b00;
+  color: #ffffff;
+  padding: 8px 16px;
+  border-radius: 6px;
+  font-weight: bold;
+  font-size: 14px;
+  text-decoration: none;
+  transition: top 0.3s ease, background 0.3s ease;
+  border: 2px solid white;
+}
+
+.skip-to-content:focus {
+  top: 50%; /* Tampilkan di tengah vertikal */
+  transform: translate(-50%, -50%); /* Pusatkan horizontal & vertikal */
+}
