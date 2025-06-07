@@ -2,6 +2,8 @@ import homePage from '../pages/home/home-page.js';
 import addStoryPage from '../pages/home/addStory-page.js';
 import loginPage from '../pages/home/login-page.js';
 import registerPage from '../pages/home/register-page.js';
+import { isServiceWorkerAvailable } from '../utils/serviceWorker.js'
+import { subscribe, unsubscribe, isCurrentPushSubscriptionAvailable } from '../utils/notificationHelper.js';
 
 const routes = {
   '/': homePage,
@@ -30,6 +32,29 @@ const Router = {
 
     this.loadPage();
     this.updateNavbarAuthLinks();
+  },
+
+  async setupPushNotification() {
+    const isSubscribed = await isCurrentPushSubscriptionAvailable();
+    const button = document.getElementById('subscribe-toggle-button');
+
+    // Set label tombol
+    button.textContent = isSubscribed ? 'Unsubscribe' : 'Subscribe';
+
+    // Hindari event listener menumpuk
+    const newButton = button.cloneNode(true);
+    button.parentNode.replaceChild(newButton, button);
+
+    newButton.addEventListener('click', async () => {
+      if (isSubscribed) {
+        await unsubscribe();
+      } else {
+        await subscribe();
+      }
+
+      // Refresh tampilan dan status
+      this.setupPushNotification();
+    });
   },
 
   async loadPage() {
@@ -71,6 +96,10 @@ const Router = {
       main.innerHTML = await page.render();
       await page.afterRender();
       this.updateNavbarAuthLinks();
+    }
+
+    if (isServiceWorkerAvailable()) {
+      this.setupPushNotification();
     }
   },
 
