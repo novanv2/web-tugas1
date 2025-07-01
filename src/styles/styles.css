@@ -306,3 +306,53 @@ button[type="submit"]:hover {
   top: 50%; /* Tampilkan di tengah vertikal */
   transform: translate(-50%, -50%); /* Pusatkan horizontal & vertikal */
 }
+
+/* Simpan Story Button */
+.save-story-btn {
+  background-color: #1e3a8a;
+  color: white;
+  font-weight: bold;
+  padding: 12px 20px;
+  border: none;
+  border-radius: 10px;
+  font-size: 16px;
+  cursor: pointer;
+  margin: 20px auto 0;
+  margin-bottom: 20px;
+  display: block;
+  transition: background-color 0.3s ease, transform 0.2s ease;
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.1);
+}
+
+.save-story-btn:hover:enabled {
+  background-color: #10234d;
+  transform: translateY(-2px);
+}
+
+.save-story-btn:active:enabled {
+  transform: scale(0.97);
+  background-color: #0e1c3a;
+}
+
+.save-story-btn:disabled {
+  background-color: #94a3b8;
+  cursor: not-allowed;
+  box-shadow: none;
+  transform: none;
+}
+
+/* Delete Story Button */
+.delete-story-btn {
+  background-color: #dc2626;
+  color: white;
+  border: none;
+  padding: 8px 12px;
+  border-radius: 8px;
+  margin-top: 10px;
+  cursor: pointer;
+  transition: background 0.2s ease;
+}
+
+.delete-story-btn:hover {
+  background-color: #991b1b;
+}

@@ -4,6 +4,5 @@ import { registerServiceWorker } from '../src/scripts/utils/serviceWorker.js'
 
 document.addEventListener('DOMContentLoaded', async () => {
   await registerServiceWorker();
-  
   Router.init();
 });

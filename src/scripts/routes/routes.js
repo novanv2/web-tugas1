@@ -2,6 +2,7 @@ import homePage from '../pages/home/home-page.js';
 import addStoryPage from '../pages/home/addStory-page.js';
 import loginPage from '../pages/home/login-page.js';
 import registerPage from '../pages/home/register-page.js';
+import savedStoriesPage from '../pages/home/savedStories-page.js';
 import { isServiceWorkerAvailable } from '../utils/serviceWorker.js'
 import { subscribe, unsubscribe, isCurrentPushSubscriptionAvailable } from '../utils/notificationHelper.js';
 
@@ -10,6 +11,7 @@ const routes = {
   '/add-story': addStoryPage,
   '/login': loginPage,
   '/register': registerPage,
+  '/saved': savedStoriesPage,
 };
 
 const Router = {
@@ -120,12 +122,14 @@ const Router = {
     const addLink = document.getElementById('nav-add');
     const registerLink = document.getElementById('nav-register');
     const logoutLink = document.getElementById('nav-logout');
+    const savedLink = document.getElementById('nav-saved');
 
     if (loginLink) loginLink.style.display = token ? 'none' : 'inline-block';
     if (registerLink) registerLink.style.display = token ? 'none' : 'inline-block';
     if (addLink) addLink.style.display = token ? 'inline-block' : 'none';
     if (homeLink) homeLink.style.display = token ? 'inline-block' : 'none';
     if (logoutLink) logoutLink.style.display = token ? 'inline-block' : 'none';
+    if (savedLink) savedLink.style.display = token ? 'inline-block' : 'none';
   },
 };
 

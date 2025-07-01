@@ -1,7 +1,6 @@
-//add story page (view)
-import addStoryPresenter from '../../presenters/addStory-presenter.js';
-import storyModel from '../../models/story-model.js';
-import { initMap, getSelectedLocation } from '../../utils/map.js';
+import addStoryPresenter from "../../presenters/addStory-presenter.js";
+import storyModel from "../../models/story-model.js";
+import { initMap, getSelectedLocation } from "../../utils/map.js";
 
 const addStoryPage = {
   async render() {
@@ -33,42 +32,44 @@ const addStoryPage = {
 
           <button type="submit">Kirim</button>
         </form>
+        <button type="button" id="story-detail-save" class="save-story-btn">
+          Simpan Story
+        </button>
       </section>
     `;
   },
 
   async afterRender() {
-    const model = new storyModel('https://story-api.dicoding.dev/v1');
+    const model = new storyModel("https://story-api.dicoding.dev/v1");
     this.presenter = new addStoryPresenter(this, model);
 
     initMap();
 
-    const section = document.querySelector('.addStoryPageSection');
+    const section = document.querySelector(".addStoryPageSection");
     if (section) {
       requestAnimationFrame(() => {
-        section.classList.add('page-enter-active');
+        section.classList.add("page-enter-active");
       });
       setTimeout(() => {
-        section.classList.remove('page-enter');
-        section.classList.remove('page-enter-active');
+        section.classList.remove("page-enter");
+        section.classList.remove("page-enter-active");
       }, 600);
     }
 
-    const video = document.getElementById('cameraPreview');
-    const canvas = document.getElementById('canvas');
-    const photoPreview = document.getElementById('photoPreview');
-    const startCameraBtn = document.getElementById('startCamera');
-    const takePhotoBtn = document.getElementById('takePhoto');
-    const stopCameraBtn = document.getElementById('stopCamera');
-    const imageInput = document.getElementById('image');
+    const video = document.getElementById("cameraPreview");
+    const canvas = document.getElementById("canvas");
+    const photoPreview = document.getElementById("photoPreview");
+    const startCameraBtn = document.getElementById("startCamera");
+    const takePhotoBtn = document.getElementById("takePhoto");
+    const stopCameraBtn = document.getElementById("stopCamera");
+    const imageInput = document.getElementById("image");
 
     let capturedImage = null;
 
     async function startCamera() {
-      // Stop dan clear stream lama jika ada
       if (window.currentStreams && window.currentStreams.length > 0) {
-        window.currentStreams.forEach(stream => {
-          stream.getTracks().forEach(track => track.stop());
+        window.currentStreams.forEach((stream) => {
+          stream.getTracks().forEach((track) => track.stop());
         });
         window.currentStreams = [];
       } else {
@@ -76,7 +77,9 @@ const addStoryPage = {
       }
 
       try {
-        const stream = await navigator.mediaDevices.getUserMedia({ video: true });
+        const stream = await navigator.mediaDevices.getUserMedia({
+          video: true,
+        });
 
         video.srcObject = stream;
         await new Promise((resolve) => {
@@ -84,50 +87,52 @@ const addStoryPage = {
         });
 
         video.play();
-        video.style.display = 'block';
+        video.style.display = "block";
 
         window.currentStreams.push(stream);
 
-        takePhotoBtn.style.display = 'block';
-        stopCameraBtn.style.display = 'block';
-        startCameraBtn.style.display = 'none';
-        imageInput.style.display = 'none';
+        takePhotoBtn.style.display = "block";
+        stopCameraBtn.style.display = "block";
+        startCameraBtn.style.display = "none";
+        imageInput.style.display = "none";
       } catch (error) {
-        console.error('Gagal mengakses kamera:', error);
-        alert('Tidak dapat mengakses kamera. Periksa izin atau gunakan browser lain.');
+        console.error("Gagal mengakses kamera:", error);
+        alert(
+          "Tidak dapat mengakses kamera. Periksa izin atau gunakan browser lain."
+        );
       }
     }
 
     function stopCamera() {
       if (window.currentStreams && window.currentStreams.length > 0) {
-        window.currentStreams.forEach(stream => {
-          stream.getTracks().forEach(track => track.stop());
+        window.currentStreams.forEach((stream) => {
+          stream.getTracks().forEach((track) => track.stop());
         });
         window.currentStreams = [];
       }
 
-      video.style.display = 'none';
-      takePhotoBtn.style.display = 'none';
-      stopCameraBtn.style.display = 'none';
-      startCameraBtn.style.display = 'block';
-      imageInput.style.display = 'block';
+      video.style.display = "none";
+      takePhotoBtn.style.display = "none";
+      stopCameraBtn.style.display = "none";
+      startCameraBtn.style.display = "block";
+      imageInput.style.display = "block";
     }
 
     function takePhoto() {
       if (video.videoWidth === 0 || video.videoHeight === 0) {
-        alert('Kamera belum siap. Coba beberapa detik lagi.');
+        alert("Kamera belum siap. Coba beberapa detik lagi.");
         return;
       }
 
       canvas.width = video.videoWidth;
       canvas.height = video.videoHeight;
 
-      const context = canvas.getContext('2d');
+      const context = canvas.getContext("2d");
       context.drawImage(video, 0, 0, canvas.width, canvas.height);
 
       canvas.toBlob((blob) => {
         if (!blob) {
-          alert('Gagal mengambil gambar. Coba lagi.');
+          alert("Gagal mengambil gambar. Coba lagi.");
           return;
         }
 
@@ -135,52 +140,103 @@ const addStoryPage = {
         const imageUrl = URL.createObjectURL(blob);
 
         photoPreview.src = imageUrl;
-        photoPreview.style.display = 'block';
-        photoPreview.classList.add('show');
-      }, 'image/png');
+        photoPreview.style.display = "block";
+        photoPreview.classList.add("show");
+      }, "image/png");
 
       stopCamera();
     }
 
-    imageInput.addEventListener('change', () => {
+    imageInput.addEventListener("change", () => {
       const file = imageInput.files[0];
       if (file) {
         const imageUrl = URL.createObjectURL(file);
         photoPreview.src = imageUrl;
-        photoPreview.style.display = 'block';
+        photoPreview.style.display = "block";
         capturedImage = file;
       }
     });
 
-    document.getElementById('storyForm').addEventListener('submit', async (event) => {
-      event.preventDefault();
+    document
+      .getElementById("storyForm")
+      .addEventListener("submit", async (event) => {
+        event.preventDefault();
 
-      const location = getSelectedLocation();
-      if (!location || !location.lat || !location.lng) {
-        alert('Silakan pilih lokasi di peta terlebih dahulu.');
-        return;
-      }
+        const location = getSelectedLocation();
+        if (!location || !location.lat || !location.lng) {
+          alert("Silakan pilih lokasi di peta terlebih dahulu.");
+          return;
+        }
 
-      if (!capturedImage) {
-        alert('Silakan ambil atau pilih gambar terlebih dahulu.');
-        return;
-      }
+        if (!capturedImage) {
+          alert("Silakan ambil atau pilih gambar terlebih dahulu.");
+          return;
+        }
 
-      const formData = new FormData();
-      formData.append('description', document.getElementById('description').value);
-      formData.append('photo', capturedImage, 'photo.png');
-      formData.append('lat', location.lat);
-      formData.append('lon', location.lng);
+        const formData = new FormData();
+        formData.append(
+          "description",
+          document.getElementById("description").value
+        );
+        formData.append("photo", capturedImage, "photo.png");
+        formData.append("lat", location.lat);
+        formData.append("lon", location.lng);
 
-      const success = await this.presenter.addStory(formData);
-      if (success) {
-        window.location.hash = '#/';
-      }
-    });
+        const success = await this.presenter.addStory(formData);
 
-    startCameraBtn.addEventListener('click', startCamera);
-    takePhotoBtn.addEventListener('click', takePhoto);
-    stopCameraBtn.addEventListener('click', stopCamera);
+        if (success) {
+          document.getElementById('story-detail-save').disabled = false;
+        }
+      });
+
+    document
+      .getElementById("story-detail-save")
+      .addEventListener("click", async () => {
+        const description = document.getElementById("description").value;
+        const location = getSelectedLocation();
+
+        console.log('description:', description);
+        console.log('capturedImage:', capturedImage);
+        console.log('location:', location);
+
+        if (
+          !description ||
+          !location?.lat ||
+          !location?.lng ||
+          !capturedImage
+        ) {
+          alert("Mohon lengkapi semua data terlebih dahulu");
+          return;
+        }
+
+        const id = `story-${Date.now()}`;
+        const reader = new FileReader();
+
+        reader.onload = async () => {
+          const imageBase64 = reader.result;
+          const report = {
+            id,
+            description,
+            lat: location.lat,
+            lon: location.lng,
+            photo: imageBase64,
+            createdAt: new Date().toISOString(),
+          };
+
+          await addStoryPage.presenter.saveReport(report);
+        };
+
+        reader.readAsDataURL(capturedImage);
+      });
+
+    startCameraBtn.addEventListener("click", startCamera);
+    takePhotoBtn.addEventListener("click", takePhoto);
+    stopCameraBtn.addEventListener("click", stopCamera);
+
+    const saveButton = document.getElementById("story-detail-save");
+    console.log("Tombol simpan ditemukan?", !!saveButton);
+
+    document.getElementById('story-detail-save').disabled = true;
   },
 
   destroy() {
@@ -194,13 +250,21 @@ const addStoryPage = {
   },
 
   showAddStorySuccess() {
-    alert('Cerita berhasil ditambahkan!');
+    alert("Cerita berhasil ditambahkan!");
   },
 
   showAddStoryError(message) {
     alert(`Gagal menambahkan cerita: ${message}`);
-    console.error('Error:', message);
-  }
+    console.error("Error:", message);
+  },
+
+  saveToBookmarkSuccessfully(message) {
+    alert(message);
+  },
+
+  saveToBookmarkFailed(message) {
+    alert(`Gagal menyimpan story: ${message}`);
+  },
 };
 
 export default addStoryPage;

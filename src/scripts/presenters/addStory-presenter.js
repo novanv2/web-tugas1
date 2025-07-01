@@ -1,5 +1,5 @@
 class addStoryPresenter {
-  constructor(view, model) {
+   constructor(view, model) {
     this.view = view;
     this.model = model;
   }
@@ -25,6 +25,27 @@ class addStoryPresenter {
       return false;
     }
   }
+
+  async saveReport() {
+  try {
+    const story = this.model.getLastAddedStory();
+    if (!story) {
+      throw new Error('Tidak ada story yang bisa disimpan');
+    }
+
+    const saved = this.model.saveStoryToLocal(story);
+    if (!saved) {
+      throw new Error('Gagal menyimpan story ke lokal');
+    }
+
+    this.view.saveToBookmarkSuccessfully('Success tersimpan ke database');
+  } catch (error) {
+    console.error('saveReport: error:', error);
+    this.view.saveToBookmarkFailed(error.message);
+  }
+}
+
+
 }
 
 export default addStoryPresenter;
